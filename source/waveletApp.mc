@@ -4,8 +4,13 @@ import Toybox.WatchUi;
 
 class waveletApp extends Application.AppBase {
 
+    private var waveletModel as WaveletModel;
+    private var waveletController as WaveletController;
+
     function initialize() {
         AppBase.initialize();
+        self.waveletModel = new WaveletModel(0);
+        self.waveletController = new WaveletController(self.waveletModel);
     }
 
     // onStart() is called on application start up
@@ -18,7 +23,7 @@ class waveletApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new waveletView(), new waveletDelegate() ];
+        return [ new waveletView(self.waveletModel), new waveletDelegate(self.waveletController) ];
     }
 
 }

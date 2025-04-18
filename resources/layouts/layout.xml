@@ -1,6 +1,6 @@
 <layout id="MainLayout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <bitmap id="sea_waves" x="10%" y="10%" filename="../drawables/sea-waves.svg" />
-    <label id="num_waves" x="50%" y="15%" text="25" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+    <bitmap id="sea_waves" x="10%" y="8%" filename="../drawables/sea-waves.svg" />
+    <label id="num_waves" x="50%" y="13%" text="25" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
 
     <bitmap id="heart" x="79%" y="5%" filename="../drawables/heart.svg" />
     <label id="bpm" x="84%" y="15%" text="115" font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
@@ -8,11 +8,11 @@
     <drawable id="dividers"/>
 
     <label x="25%" y="45%" text="TIMER" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
-    <label id="minutes_hours" x="18%" y="55%" text="0:00" font="Graphics.FONT_NUMBER_MEDIUM" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
-    <label id="seconds" x="39%" y="57%" text="00" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+    <label id="session_hours_minutes" x="18%" y="58%" text="0:00" font="Graphics.FONT_NUMBER_MEDIUM" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+    <label id="session_seconds" x="39%" y="60%" text="00" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
 
     <label x="74%" y="45%" text="CAL" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
-    <label id="calories" x="74%" y="55%" text="1270" font="Graphics.FONT_NUMBER_MEDIUM" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+    <label id="calories" x="74%" y="58%" text="1270" font="Graphics.FONT_NUMBER_MEDIUM" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
 
-    <label id="current_time" x="49%" y="83%" text="12:34" font="Graphics.FONT_SMALL" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+    <label id="current_time" x="49%" y="86%" text="12:34" font="Graphics.FONT_SMALL" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
 </layout>
