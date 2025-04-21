@@ -2,18 +2,29 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.WatchUi;
 
-class waveletMenuDelegate extends WatchUi.MenuInputDelegate {
+class WaveletMenuDelegate extends WatchUi.Menu2InputDelegate {
 
-    function initialize() {
-        MenuInputDelegate.initialize();
+    private var waveletMenuController as WaveletMenuController;
+
+    function initialize(waveletMenuController as WaveletMenuController) {
+        Menu2InputDelegate.initialize();
+        self.waveletMenuController = waveletMenuController;
     }
 
-    function onMenuItem(item as Symbol) as Void {
-        if (item == :item_1) {
-            System.println("item 1");
-        } else if (item == :item_2) {
-            System.println("item 2");
+    public function onSelect(item as MenuItem) as Void {
+        
+        var id = item.getId() as Symbol;
+        if (id == :resume) {
+            waveletMenuController.resumeSelected();
+        } else if (id == :save) {
+            waveletMenuController.saveSelected();
+        } else if (id == :discard) {
+            waveletMenuController.discardSelected();
         }
+    }
+
+    public function onBack() as Void {
+        waveletMenuController.backPressed();
     }
 
 }

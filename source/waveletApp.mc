@@ -23,7 +23,7 @@ class waveletApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new waveletView(self.waveletModel), new waveletDelegate(self.waveletController) ];
+        return [ new WaveletView(self.waveletModel), new WaveletDelegate(self.waveletController) ];
     }
 
 }

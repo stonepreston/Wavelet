@@ -3,7 +3,7 @@ import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.System;
 
-class waveletView extends WatchUi.View {
+class WaveletView extends WatchUi.View {
 
     private var waveletModel as WaveletModel;
     private var numberOfWavesLabel;

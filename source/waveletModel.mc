@@ -18,12 +18,16 @@ class WaveletModel
     }
 
     public function incrementNumberOfWaves() as Void {
-        self.numberOfWaves = self.numberOfWaves + 1;
+        if (self.isRecording()) {
+            self.numberOfWaves = self.numberOfWaves + 1;
+        }
     }
 
     public function decrementNumberOfWaves() as Void {
-        if (self.numberOfWaves >= 1) {
-            self.numberOfWaves = self.numberOfWaves - 1;
+        if (self.isRecording()) {
+            if (self.numberOfWaves >= 1) {
+                self.numberOfWaves = self.numberOfWaves - 1;
+            }
         }
     }
 
@@ -39,19 +43,25 @@ class WaveletModel
         return session;
     }
 
+    public function resetSession() as Void {
+        System.println("Resetting session to null");
+        self.numberOfWaves = 0;
+        self.session = null;
+    }
+
     public function startOrPauseRecording() as Void {
-        if (session == null) {
-            session = ActivityRecording.createSession({:name=>"Surfing", :sport=>Activity.SPORT_SURFING});
+        if (self.session == null) {
+            self.session = ActivityRecording.createSession({:name=>"Surfing", :sport=>Activity.SPORT_SURFING});
             System.println("Starting Recording");
-            session.start();
+            self.session.start();
         } else {
             // Session already exists so we need to either start or pause
-            if (session.isRecording()) {
+            if (self.session.isRecording()) {
                 System.println("Stopping recording");
-                session.stop();
+                self.session.stop();
             } else {
                 System.println("Starting recording");
-                session.start();
+                self.session.start();
             }
         }
         
@@ -88,5 +98,13 @@ class WaveletModel
         }
         System.println("Returning null heartrate");
         return null;
+    }
+
+    public function isRecording() as Lang.Boolean {
+        if (self.session != null) {
+            return self.session.isRecording();
+        } else {
+            return false;
+        }
     }
 }

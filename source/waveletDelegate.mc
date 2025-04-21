@@ -2,7 +2,7 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 import Toybox.System;
 
-class waveletDelegate extends WatchUi.BehaviorDelegate {
+class WaveletDelegate extends WatchUi.BehaviorDelegate {
 
     private var waveletController as WaveletController;
 

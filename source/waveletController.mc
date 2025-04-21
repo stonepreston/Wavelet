@@ -30,7 +30,14 @@ class WaveletController
     }
 
     public function enterPressed() as Void {
+        System.println("Enter pressed in wavelet view");
         self.waveletModel.startOrPauseRecording();
+        if (!self.waveletModel.isRecording()) {
+            // If we are not recording then that means its been paused and we need to show the menu
+            var waveletMenuController = new WaveletMenuController(self.waveletModel);
+            WatchUi.pushView(new Rez.Menus.MainMenu(), new WaveletMenuDelegate(waveletMenuController), WatchUi.SLIDE_UP);
+
+        }
         WatchUi.requestUpdate();
     }
 }
