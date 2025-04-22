@@ -21,9 +21,11 @@ class WaveletModel
     public function incrementNumberOfWaves() as Void {
         if (self.isRecording()) {
             self.numberOfWaves = self.numberOfWaves + 1;
+            self.session.addLap();
         }
     }
 
+    // not currently used since laps are used and laps cant be manually decreased
     public function decrementNumberOfWaves() as Void {
         if (self.isRecording()) {
             if (self.numberOfWaves >= 1) {

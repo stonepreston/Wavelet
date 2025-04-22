@@ -17,7 +17,7 @@ class WaveletDelegate extends WatchUi.BehaviorDelegate {
         if (key == KEY_UP) {
             self.waveletController.upPressed();
         } else if (key == KEY_DOWN) {
-            self.waveletController.downPressed();
+            // self.waveletController.downPressed();
         } else if (key == KEY_ENTER) {
             self.waveletController.enterPressed();
         } else if (key == KEY_ESC) {
