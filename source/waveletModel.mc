@@ -1,6 +1,7 @@
 import Toybox.Lang;
 import Toybox.System;
 import Toybox.ActivityRecording;
+import Toybox.Attention;
 
 class WaveletModel
 {
@@ -50,20 +51,25 @@ class WaveletModel
     }
 
     public function startOrPauseRecording() as Void {
+        var vibeData = [new Attention.VibeProfile(50, 500)];
         if (self.session == null) {
             self.session = ActivityRecording.createSession({:name=>"Surfing", :sport=>Activity.SPORT_SURFING});
             System.println("Starting Recording");
             self.session.start();
+            Attention.playTone(Attention.TONE_START);
         } else {
             // Session already exists so we need to either start or pause
             if (self.session.isRecording()) {
                 System.println("Stopping recording");
                 self.session.stop();
+                Attention.playTone(Attention.TONE_STOP);
             } else {
                 System.println("Starting recording");
                 self.session.start();
+                Attention.playTone(Attention.TONE_START);
             }
         }
+        Attention.vibrate(vibeData);
         
     }
 
@@ -106,5 +112,12 @@ class WaveletModel
         } else {
             return false;
         }
+    }
+
+    public function save() as Void {
+        System.println("Saving session ... ");
+        self.session.save();
+        self.resetSession();
+        System.println("Save complete!");
     }
 }

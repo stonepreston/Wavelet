@@ -20,6 +20,8 @@ class WaveletDelegate extends WatchUi.BehaviorDelegate {
             self.waveletController.downPressed();
         } else if (key == KEY_ENTER) {
             self.waveletController.enterPressed();
+        } else if (key == KEY_ESC) {
+            self.waveletController.backPressed();
         }
 
         return true;

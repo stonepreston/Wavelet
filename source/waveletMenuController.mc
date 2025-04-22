@@ -14,23 +14,31 @@ class WaveletMenuController
     public function resumeSelected() as Void {
         System.println("Resume selected");
         self.waveletModel.startOrPauseRecording();
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        WatchUi.popView(WatchUi.SLIDE_LEFT);
     }
 
     public function saveSelected() as Void {
         System.println("Save selected");
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        self.waveletModel.save();
+        WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+        WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
     }
 
     public function discardSelected() as Void {
         System.println("Discard selected");
-        self.waveletModel.resetSession();
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        var message = "Discard?";
+        var dialog = new WatchUi.Confirmation(message);
+        var discardConfirmationController = new DiscardConfirmationController(self.waveletModel);
+        WatchUi.pushView(
+            dialog,
+            new DiscardConfirmationDelegate(discardConfirmationController),
+            WatchUi.SLIDE_RIGHT
+        );
     }
 
     public function backPressed() as Void {
         System.println("Back pressed");
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        WatchUi.popView(WatchUi.SLIDE_LEFT);
     }
     
 

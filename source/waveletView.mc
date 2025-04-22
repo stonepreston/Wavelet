@@ -12,6 +12,8 @@ class WaveletView extends WatchUi.View {
     private var sessionSecondsLabel;
     private var caloriesLabel;
     private var bpmLabel;
+    private var playIcon;
+    private var heartIcon;
 
     function initialize(waveletModel as WaveletModel) {
         View.initialize();
@@ -27,6 +29,8 @@ class WaveletView extends WatchUi.View {
         sessionSecondsLabel = findDrawableById("session_seconds");
         caloriesLabel = findDrawableById("calories");
         bpmLabel = findDrawableById("bpm");
+        playIcon = findDrawableById("play");
+        heartIcon = findDrawableById("heart");
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -43,6 +47,7 @@ class WaveletView extends WatchUi.View {
         updateSessionTimeLabels();
         updateSessionCalorieLabel();
         updateSessionBPMLabel();
+        updatePlayStatus();
 
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
@@ -106,5 +111,18 @@ class WaveletView extends WatchUi.View {
         var sec = secs%60;
         return sec.format("%02d");
     } 
+
+    function updatePlayStatus() {
+        if (self.waveletModel.isRecording()) {
+            playIcon.setVisible(false);
+            heartIcon.setVisible(true);
+            bpmLabel.setVisible(true);
+        } else {
+
+            playIcon.setVisible(true);
+            heartIcon.setVisible(false);
+            bpmLabel.setVisible(false);
+        }
+    }
 
 }
