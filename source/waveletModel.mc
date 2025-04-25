@@ -2,16 +2,24 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.ActivityRecording;
 import Toybox.Attention;
+import Toybox.Position;
+
+typedef VibeContainer as Array<Attention.VibeProfile>;
 
 class WaveletModel
 {
     private var numberOfWaves as Integer = 0;
     private var currentTime as System.ClockTime;
     private var session as Session?;
+    private var isGPSObtained = false;
+    private var isGPSSkipped = false;
+    private var gpsQuality = Position.QUALITY_NOT_AVAILABLE;
+    private var vibeData as VibeContainer;
 
     public function initialize(numberOfWaves as Integer) {
       self.numberOfWaves = numberOfWaves;
       self.currentTime = System.getClockTime();
+      self.vibeData = [new Attention.VibeProfile(50, 500)];
     }
 
     public function getNumberOfWaves() as Integer {
@@ -53,7 +61,6 @@ class WaveletModel
     }
 
     public function startOrPauseRecording() as Void {
-        var vibeData = [new Attention.VibeProfile(50, 500)];
         if (self.session == null) {
             self.session = ActivityRecording.createSession({:name=>"Surfing", :sport=>Activity.SPORT_SURFING});
             System.println("Starting Recording");
@@ -71,7 +78,7 @@ class WaveletModel
                 Attention.playTone(Attention.TONE_START);
             }
         }
-        Attention.vibrate(vibeData);
+        Attention.vibrate(self.vibeData);
         
     }
 
@@ -121,5 +128,33 @@ class WaveletModel
         self.session.save();
         self.resetSession();
         System.println("Save complete!");
+    }
+
+    public function getIsGPSObtained() as Boolean {
+        return self.isGPSObtained;
+    }
+
+    public function setIsGPSObtained(value as Boolean) as Void {
+        self.isGPSObtained = value;
+    }
+
+    public function getIsGPSSkipped() as Boolean {
+        return self.isGPSSkipped;
+    }
+
+    public function setIsGPSSkipped(value as Boolean) as Void {
+        self.isGPSSkipped = value;
+    }
+
+    public function getGPSQuality() as Position.Quality {
+        return self.gpsQuality;
+    }
+
+    public function setGPSQuality(value as Position.Quality) as Void {
+        self.gpsQuality = value;
+    }
+
+    public function getVibeData() as VibeContainer {
+        return self.vibeData;
     }
 }

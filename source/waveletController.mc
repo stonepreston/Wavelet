@@ -8,10 +8,14 @@ class WaveletController
 {
     private var waveletModel as WaveletModel;
     private var secondTimer as Timer.Timer?;
+
+
     public function initialize(waveletModel as WaveletModel) {
-      self.waveletModel = waveletModel;
-      self.secondTimer = new Timer.Timer();
-      secondTimer.start(method(:secondTimerCallback), 1000, true);
+        self.waveletModel = waveletModel;
+        self.secondTimer = new Timer.Timer();
+        secondTimer.start(method(:secondTimerCallback), 1000, true);
+
+        
     }
 
     public function upPressed() as Void {

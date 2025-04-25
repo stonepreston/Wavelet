@@ -14,10 +14,16 @@ class WaveletView extends WatchUi.View {
     private var bpmLabel;
     private var playIcon;
     private var heartIcon;
+    private var progressBar as WatchUi.ProgressBar;
 
     function initialize(waveletModel as WaveletModel) {
         View.initialize();
         self.waveletModel = waveletModel;
+        progressBar = new WatchUi.ProgressBar(
+            "\nObtaining \nGPS \nSignal",
+            null
+        );
+
     }
 
     // Load your resources here
@@ -37,6 +43,18 @@ class WaveletView extends WatchUi.View {
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() as Void {
+
+        if (!self.waveletModel.getIsGPSObtained() and !self.waveletModel.getIsGPSSkipped()) {
+            
+            System.println("Showing progress bar for GPS");
+            var gpsProgressController = new GPSProgressController(self.waveletModel);
+            WatchUi.pushView(
+                progressBar,
+                new GPSProgressDelegate(gpsProgressController),
+                WatchUi.SLIDE_RIGHT
+            );
+        }
+        
 
     }
 
