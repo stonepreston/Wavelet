@@ -14,18 +14,20 @@ class GPSProgressController
     }
 
     public function secondTimerCallback() as Void {
-        if (self.waveletModel.getGPSQuality() == Position.QUALITY_GOOD or self.waveletModel.getGPSQuality() == Position.QUALITY_USABLE) {
+        if (self.waveletModel.getGPSQuality() == Position.QUALITY_GOOD) {
             secondTimer.stop();
             System.println("Sufficient GPS quality obtained! Showing main view");
             Attention.vibrate(self.waveletModel.getVibeData());
             self.waveletModel.setIsGPSObtained(true);
-            WatchUi.popView(WatchUi.SLIDE_LEFT);
+            WatchUi.popView(WatchUi.SLIDE_RIGHT);
         }
     }
 
     public function backPressed() as Void {
         System.println("Back pressed in GPS Progress Bar");
         self.waveletModel.setIsGPSSkipped(true);
+        self.secondTimer.stop();
+        self.secondTimer = null;
         // Note: view is automatically popped when back is pressed
         // WatchUi.popView(WatchUi.SLIDE_LEFT);
     }

@@ -1,0 +1,4 @@
+<fitContributions>
+    <fitField id="2" displayInActivitySummary="true" sortOrder = "1" precision="0"
+    dataLabel="@Strings.waves_label" unitLabel="@Strings.waves_units"  /> 
+</fitContributions>

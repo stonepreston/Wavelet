@@ -3,6 +3,7 @@ import Toybox.System;
 import Toybox.ActivityRecording;
 import Toybox.Attention;
 import Toybox.Position;
+import Toybox.FitContributor;
 
 typedef VibeContainer as Array<Attention.VibeProfile>;
 
@@ -15,6 +16,8 @@ class WaveletModel
     private var isGPSSkipped = false;
     private var gpsQuality = Position.QUALITY_NOT_AVAILABLE;
     private var vibeData as VibeContainer;
+    private var totalWavesField as FitContributor.Field?;
+    private var hasSessionBeenStartedFirstTime = false;
 
     public function initialize(numberOfWaves as Integer) {
       self.numberOfWaves = numberOfWaves;
@@ -29,6 +32,9 @@ class WaveletModel
     public function incrementNumberOfWaves() as Void {
         if (self.isRecording()) {
             self.numberOfWaves = self.numberOfWaves + 1;
+            if (self.totalWavesField != null) {
+                self.totalWavesField.setData(self.numberOfWaves);
+            }
             self.session.addLap();
         }
     }
@@ -55,16 +61,20 @@ class WaveletModel
     }
 
     public function resetSession() as Void {
-        System.println("Resetting session to null");
+        System.println("Resetting session");
         self.numberOfWaves = 0;
+        self.hasSessionBeenStartedFirstTime = false;
         self.session = null;
+        // creating the session seems to take a while so do it here to preload it while a save or discard is spinning
+        self.createSession();
     }
 
     public function startOrPauseRecording() as Void {
         if (self.session == null) {
-            self.session = ActivityRecording.createSession({:name=>"Surfing", :sport=>Activity.SPORT_SURFING});
+            self.createSession();
             System.println("Starting Recording");
             self.session.start();
+            self.hasSessionBeenStartedFirstTime = true;
             Attention.playTone(Attention.TONE_START);
         } else {
             // Session already exists so we need to either start or pause
@@ -75,6 +85,7 @@ class WaveletModel
             } else {
                 System.println("Starting recording");
                 self.session.start();
+                self.hasSessionBeenStartedFirstTime = true;
                 Attention.playTone(Attention.TONE_START);
             }
         }
@@ -123,11 +134,32 @@ class WaveletModel
         }
     }
 
-    public function save() as Void {
+    public function save() as Boolean {
         System.println("Saving session ... ");
-        self.session.save();
-        self.resetSession();
-        System.println("Save complete!");
+        self.session.stop();
+        var saveStatus = self.session.save();
+        if (saveStatus ==  true) {
+            self.resetSession();
+            System.println("Save was successful!");
+        } else {
+            System.println("Save was NOT successful!");
+        }
+        
+        return saveStatus;
+    }
+
+    public function discard() as Boolean {
+        System.println("Discarding session ... ");
+        self.session.stop();
+        var discardStatus = self.session.discard();
+        if (discardStatus ==  true) {
+            self.resetSession();
+            System.println("Discard was successful!");
+        } else {
+            System.println("Discard was NOT successful!");
+        }
+        
+        return discardStatus;
     }
 
     public function getIsGPSObtained() as Boolean {
@@ -157,4 +189,14 @@ class WaveletModel
     public function getVibeData() as VibeContainer {
         return self.vibeData;
     }
+
+    private function createSession() as Void {
+        self.session = ActivityRecording.createSession({:name=>"Surfing", :sport=>Activity.SPORT_SURFING});
+        self.totalWavesField = self.session.createField("TotalWaves", 2, FitContributor.DATA_TYPE_UINT32, {:mesgType => FitContributor.MESG_TYPE_SESSION});
+    }
+
+    public function getHasSessionBeenStartedFirstTime() as Boolean {
+        return self.hasSessionBeenStartedFirstTime;
+    }
+
 }

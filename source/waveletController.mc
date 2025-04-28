@@ -39,21 +39,21 @@ class WaveletController
         if (!self.waveletModel.isRecording()) {
             // If we are not recording then that means its been paused and we need to show the menu
             var waveletMenuController = new WaveletMenuController(self.waveletModel);
-            WatchUi.pushView(new Rez.Menus.MainMenu(), new WaveletMenuDelegate(waveletMenuController), WatchUi.SLIDE_RIGHT);
+            WatchUi.pushView(new Rez.Menus.MainMenu(), new WaveletMenuDelegate(waveletMenuController), WatchUi.SLIDE_LEFT);
 
         }
         WatchUi.requestUpdate();
     }
 
     public function backPressed() as Void {
-        if (self.waveletModel.getSession() != null) {
+        if (self.waveletModel.getHasSessionBeenStartedFirstTime()) {
             var message = "Save activity?";
             var dialog = new WatchUi.Confirmation(message);
             var quitConfirmationController = new QuitConfirmationController(self.waveletModel);
             WatchUi.pushView(
                 dialog,
                 new QuitConfirmationDelegate(quitConfirmationController),
-                WatchUi.SLIDE_RIGHT
+                WatchUi.SLIDE_LEFT
             );
         } else {
             WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
