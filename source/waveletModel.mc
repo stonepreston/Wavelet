@@ -191,7 +191,7 @@ class WaveletModel
     }
 
     private function createSession() as Void {
-        self.session = ActivityRecording.createSession({:name=>"Surfing", :sport=>Activity.SPORT_SURFING});
+        self.session = ActivityRecording.createSession({:name=>"Surfing", :sport=>Activity.SPORT_GENERIC});
         self.totalWavesField = self.session.createField("TotalWaves", 2, FitContributor.DATA_TYPE_UINT32, {:mesgType => FitContributor.MESG_TYPE_SESSION});
     }
 
