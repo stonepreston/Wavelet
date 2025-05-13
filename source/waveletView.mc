@@ -77,7 +77,10 @@ class WaveletView extends WatchUi.View {
     }
 
     function updateCurrentTimeLabel() {
-        currentTimeLabel.setText(self.waveletModel.getCurrentTime().hour.format("%d") + ":" + self.waveletModel.getCurrentTime().min.format("%02d"));
+        var is24Hour = System.getDeviceSettings().is24Hour;
+        var time = self.waveletModel.getCurrentTime();
+        var hour = is24Hour ? time.hour : 1 + (time.hour + 11) % 12;
+        currentTimeLabel.setText(hour.format("%d") + ":" + self.waveletModel.getCurrentTime().min.format("%02d"));
     }
 
     function updateSessionTimeLabels() {

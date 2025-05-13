@@ -1,0 +1,20 @@
+<layout id="MainLayout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <bitmap id="sea_waves" x="27%" y="16%" filename="../drawables/sea-waves.svg" />
+    <label id="num_waves" x="30%" y="23%" text="25" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+
+    <bitmap id="heart" x="65.5%" y="16%" filename="../drawables/heart.svg" />
+    <label id="bpm" x="68%" y="23%" text="115" font="Graphics.FONT_MEDIUM" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+
+    <bitmap id="play" x="64%" y="23%" filename="../drawables/play-solid.svg" />
+
+    <drawable id="dividers"/>
+
+    <label x="25%" y="45%" text="TIMER" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+    <label id="session_hours_minutes" x="27%" y="50%" text="0:00" font="Graphics.FONT_NUMBER_MEDIUM" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+    <label id="session_seconds" x="43%" y="52%" text="00" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+
+    <label x="74%" y="45%" text="CAL" font="Graphics.FONT_XTINY" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+    <label id="calories" x="74%" y="50%" text="1270" font="Graphics.FONT_NUMBER_MEDIUM" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+
+    <label id="current_time" x="49%" y="86%" text="12:34" font="Graphics.FONT_SMALL" color="Graphics.COLOR_WHITE" justification="Graphics.TEXT_JUSTIFY_CENTER" />
+</layout>
